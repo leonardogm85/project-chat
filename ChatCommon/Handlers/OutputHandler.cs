@@ -77,6 +77,12 @@ public sealed class OutputHandler
         _output.WriteLine(command);
     }
 
+    public void SendServerConnectingCommand()
+    {
+        var command = new Command(CommandType.ServerConnecting, string.Empty);
+        _output.WriteLine(command);
+    }
+
     public void SendServerDisconnectingCommand()
     {
         var command = new Command(CommandType.ServerDisconnecting, string.Empty);

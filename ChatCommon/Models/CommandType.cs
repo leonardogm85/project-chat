@@ -17,5 +17,6 @@ public enum CommandType
     MemberCanLeave,
     MemberLeft,
 
+    ServerConnecting,
     ServerDisconnecting
 }

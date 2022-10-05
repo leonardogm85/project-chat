@@ -21,6 +21,7 @@ public sealed class InputHandler
     public event EventHandler<MemberCanLeaveEventArgs>? MemberCanLeave;
     public event EventHandler<MemberLeftEventArgs>? MemberLeft;
 
+    public event EventHandler<ServerConnectingEventArgs>? ServerConnecting;
     public event EventHandler<ServerDisconnectingEventArgs>? ServerDisconnecting;
 
     private bool _stopped = false;
@@ -81,6 +82,9 @@ public sealed class InputHandler
                     break;
                 case CommandType.MemberLeft:
                     HandleMemberLeftCommand(command);
+                    break;
+                case CommandType.ServerConnecting:
+                    HandleServerConnectingCommand(command);
                     break;
                 case CommandType.ServerDisconnecting:
                     HandleServerDisconnectingCommand(command);
@@ -212,6 +216,18 @@ public sealed class InputHandler
 
         var args = new MemberLeftEventArgs(command.Parameter);
         MemberLeft.Invoke(this, args);
+        _stopped = args.InputHandlerStopped;
+    }
+
+    public void HandleServerConnectingCommand(Command command)
+    {
+        if (ServerConnecting == null)
+        {
+            return;
+        }
+
+        var args = new ServerConnectingEventArgs();
+        ServerConnecting.Invoke(this, args);
         _stopped = args.InputHandlerStopped;
     }
 
