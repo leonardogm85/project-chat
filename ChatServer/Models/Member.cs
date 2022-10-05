@@ -31,6 +31,11 @@ internal sealed class Member
         await InputHandler.Start();
     }
 
+    public void SendServerConnectingCommand()
+    {
+        OutputHandler.SendServerConnectingCommand();
+    }
+
     public void SendServerDisconnectingCommand()
     {
         OutputHandler.SendServerDisconnectingCommand();
